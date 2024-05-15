@@ -1,4 +1,91 @@
-[gd_scene format=3 uid="uid://ce3t0gyrmlc10"]
+[gd_scene load_steps=10 format=3 uid="uid://ce3t0gyrmlc10"]
+
+[ext_resource type="Script" path="res://Scripts/manager/word_tester.gd" id="1_eg6ci"]
+[ext_resource type="Texture2D" uid="uid://og7e4gk7qvfo" path="res://Assets/images/tvscreen.png" id="1_gd24b"]
+[ext_resource type="Texture2D" uid="uid://dgj0po7ib6sph" path="res://Assets/images/toppng.com-white-circle-fade-png-corner-fade-to-black-600x600.png" id="2_jo0ff"]
+
+[sub_resource type="Animation" id="Animation_rrudd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display/Intro:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Display/Intro:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_s1t3l"]
+resource_name = "dflt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display/Intro:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rr542"]
+resource_name = "loadIN"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display/Intro:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_aoa1p"]
+resource_name = "loadOUT"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display/Intro:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xkxd7"]
+_data = {
+"RESET": SubResource("Animation_rrudd"),
+"dflt": SubResource("Animation_s1t3l"),
+"loadIN": SubResource("Animation_rr542"),
+"loadOUT": SubResource("Animation_aoa1p")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bh0hj"]
+bg_color = Color(0.0509804, 0.0117647, 0.152941, 1)
 
 [node name="wordTester" type="Control"]
 layout_mode = 3
@@ -7,6 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_eg6ci")
 
 [node name="bg" type="ColorRect" parent="."]
 layout_mode = 1
@@ -16,3 +104,244 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.113725, 0.0352941, 0.12549, 1)
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -307.0
+offset_top = -257.0
+offset_right = 303.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" type="ColorRect" parent="Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="bg2" type="ColorRect" parent="Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 15.0
+offset_right = -27.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.945098, 0.984314, 1)
+
+[node name="txtScreen" type="Label" parent="Screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "READY?"
+
+[node name="Display" type="Control" parent="Screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -277.0
+offset_top = -175.5
+offset_right = 274.0
+offset_bottom = 179.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="lvl" type="Label" parent="Screen/Display"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -29.0
+offset_right = 29.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Level: 1"
+
+[node name="TV" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.16375
+anchor_top = 0.0733333
+anchor_right = 0.8975
+anchor_bottom = 0.76
+offset_left = -22.0
+offset_top = -5.0
+offset_right = -22.0
+offset_bottom = -5.00003
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="whitescreen" type="ColorRect" parent="TV"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0698467
+anchor_top = 0.121359
+anchor_right = 0.947189
+anchor_bottom = 0.868932
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.945098, 0.984314, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="TVimg" type="TextureRect" parent="TV"]
+editor_description = "reference:
+https://www.istockphoto.com/photo/vintage-tv-with-blank-screen-gm175496278-21056598
+"
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -306.0
+offset_top = -209.0
+offset_right = 306.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_gd24b")
+
+[node name="Tvscreen" type="Sprite2D" parent="TV"]
+visible = false
+position = Vector2(276, 188)
+texture = ExtResource("1_gd24b")
+
+[node name="Display" type="Control" parent="TV"]
+anchors_preset = 0
+offset_left = 65.0
+offset_top = 72.0
+offset_right = 421.0
+offset_bottom = 333.0
+
+[node name="Intro" type="Label" parent="TV/Display"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -56.5
+offset_right = 159.0
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Text will appear"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="animtxt" type="AnimationPlayer" parent="TV"]
+libraries = {
+"": SubResource("AnimationLibrary_xkxd7")
+}
+autoplay = "dflt"
+
+[node name="fade" type="TextureRect" parent="."]
+editor_description = "https://toppng.com/img-download/stock/164272
+"
+modulate = Color(0, 0, 0, 0.427451)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jo0ff")
+expand_mode = 1
+
+[node name="input" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -124.0
+offset_right = 277.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="box" type="ColorRect" parent="input"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.266667, 0.192157, 0.156863, 1)
+
+[node name="text" type="TextEdit" parent="input/box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00865801
+anchor_top = 0.0526316
+anchor_right = 0.493723
+anchor_bottom = 0.962105
+offset_right = 24.9
+offset_bottom = 9.60001
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+text = "..."
+placeholder_text = "Type here"
+metadata/_edit_use_anchors_ = true
+
+[node name="existWords" type="Control" parent="input/box"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -271.0
+offset_top = 6.0
+offset_right = -11.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="input/box/existWords"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bh0hj")
+
+[node name="currentTXT" type="Label" parent="input/box/existWords/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="gutter_clicked" from="input/box/text" to="." method="_on_text_gutter_clicked"]
+[connection signal="text_set" from="input/box/text" to="." method="_on_text_text_set"]

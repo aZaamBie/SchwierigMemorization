@@ -11,14 +11,24 @@ var currentList
 var currentLvl = 1
 var IND_list = 0 # index for the current
 
+var comboCount = 0
+var highestCombo = 0
+
 var canType : bool = false
 #var loadSpeed : float= 1.0
 
 ### FUNCTIONS
 func _ready():
 	pass
-	#introProcedure()	
-	currentList = wordList_tst # test
+	
+	if Globals.currentSet_play == []:
+		pass 
+		currentList = wordList_tst # test
+	else:
+		pass
+		currentList = Globals.currentSet_play
+	
+	#currentList = wordList_tst # test
 	mainLoop()
 	
 

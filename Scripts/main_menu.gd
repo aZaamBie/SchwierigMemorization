@@ -7,18 +7,29 @@ var currentSetContents
 func _ready():
 	pass # Replace with function body.
 	$playSelect.hide()
+	$optionSelect.hide()
+	
 	closeCset()
+	$optionSelect/vboxCont/hslid_difficulty.value = Globals.difficulty_
 
 
 func _process(delta):
 	pass
+	$optionSelect/vboxCont/lbl_difficulty.text = "Difficulty: " + str($optionSelect/vboxCont/hslid_difficulty.value)
 
 # MAIN(outer) BUTTONS
 func _on_btn_play_pressed():
 	$playSelect.show()
 	checkCustoms()
+	$sfx_select.play()
+func _on_btn_options_pressed():
+	$optionSelect.show()
+	$sfx_select.play()
 func _on_back_pressed():
 	$playSelect.hide()
+	$optionSelect.hide()
+	$sfx_select.play()
+
 func _on_btn_exit_pressed():
 	get_tree().quit()
 
@@ -112,6 +123,8 @@ func _on_back_c_set_pressed():
 func _on_save_btn_pressed():
 	pass # Replace with function body.
 	Globals.save_score()
+	OS.alert("Data has been saved successfully (Custom sets and Difficulty level)","ALERT! Successful save.")
+	$sfx_save.play()
 func _on_clear_btn_pressed():
 	pass # Replace with function body.
 	OS.alert("All sets will be cleard and all data in there will be list. ","ALERT! All datat will be cleared")
@@ -122,3 +135,14 @@ func _on_play_c_set_pressed():
 	pass # Replace with function body.
 	Globals.currentSet_play = currentSetContents
 	get_tree().change_scene_to_file("res://Scenes/word_tester.tscn")
+
+
+## OPTIONS
+
+func _on_hslid_difficulty_drag_ended(value_changed):
+	pass # Replace with function body.
+	Globals.difficulty_ = $optionSelect/vboxCont/hslid_difficulty.value
+
+func _on_hslid_difficulty_drag_started():
+	pass # Replace with function body.
+	#$optionSelect/vboxCont/lbl_difficulty.text = "Difficulty: " + str($optionSelect/vboxCont/hslid_difficulty.value)

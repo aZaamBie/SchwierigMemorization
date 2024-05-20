@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2l83f74ry07e"
-path="res://.godot/imported/istockphoto-175496278-612x612.jpg-544b04cc034f5aa17b2f41e5970fb852.ctex"
+uid="uid://4cxnwni3nrdq"
+path="res://.godot/imported/logo_schwierigMem.png-ca6b43a4d38c37b68ca010b6a668f562.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/images/istockphoto-175496278-612x612.jpg"
-dest_files=["res://.godot/imported/istockphoto-175496278-612x612.jpg-544b04cc034f5aa17b2f41e5970fb852.ctex"]
+source_file="res://Assets/logo_schwierigMem.png"
+dest_files=["res://.godot/imported/logo_schwierigMem.png-ca6b43a4d38c37b68ca010b6a668f562.ctex"]
 
 [params]
 

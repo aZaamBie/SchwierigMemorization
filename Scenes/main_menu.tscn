@@ -1,6 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://22u0rtj4y54j"]
+[gd_scene load_steps=19 format=3 uid="uid://22u0rtj4y54j"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_b6f8g"]
+[ext_resource type="AudioStream" uid="uid://bjqxt4iipx5j" path="res://Assets/audio/interface/confirmation_002.ogg" id="2_3d6tq"]
+[ext_resource type="AudioStream" uid="uid://dw3h1oyj0ah5l" path="res://Assets/audio/interface/select_005.ogg" id="3_ixqpu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp6my"]
 bg_color = Color(0.137255, 0.160784, 0.176471, 1)
@@ -15,7 +17,7 @@ expand_margin_bottom = 2.0
 shadow_size = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka3kw"]
-bg_color = Color(0.0509804, 0.0509804, 0.0509804, 0.552941)
+bg_color = Color(0.141176, 0.243137, 0.278431, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -78,6 +80,18 @@ corner_radius_bottom_left = 2
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwtc8"]
 bg_color = Color(0.384314, 0.352941, 0.129412, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hef21"]
+bg_color = Color(0.243137, 0.286275, 0.313726, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 6
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eacq"]
 bg_color = Color(0.215686, 0.74902, 0.247059, 1)
 corner_radius_top_left = 3
@@ -104,6 +118,9 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 shadow_size = 2
 shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uaty2"]
+bg_color = Color(0.352941, 0.137255, 0.52549, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -182,6 +199,7 @@ theme_override_font_sizes/font_size = 28
 text = "EXIT"
 
 [node name="playSelect" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -320,6 +338,7 @@ text = "BACK
 "
 
 [node name="cSet_edit" type="TextEdit" parent="playSelect"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.025
@@ -384,6 +403,100 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_bknlc")
 disabled = true
 text = "PLAY"
 
+[node name="optionSelect" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ka3kw")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="optionSelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.261
+anchor_bottom = 1.368
+offset_left = -112.0
+offset_top = -108.0
+offset_right = 3.39996
+offset_bottom = 5.79999
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.184314)
+
+[node name="ttl" type="Label" parent="optionSelect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.5
+offset_top = 3.0
+offset_right = 70.5
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_hef21")
+text = "OPTIONS"
+
+[node name="vboxCont" type="VBoxContainer" parent="optionSelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.111666
+anchor_top = 0.2375
+anchor_right = 0.908333
+anchor_bottom = 0.6775
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="clearBTN" type="Button" parent="optionSelect/vboxCont"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.341176, 0.207843, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.262745, 0.262745, 0.262745, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_2eacq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_03nrn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ldlqw")
+text = "Clear Data (Custom sets)"
+
+[node name="lbl_difficulty" type="Label" parent="optionSelect/vboxCont"]
+layout_mode = 2
+text = "Difficulty:"
+
+[node name="hslid_difficulty" type="HSlider" parent="optionSelect/vboxCont"]
+layout_mode = 2
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_uaty2")
+min_value = 0.1
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="back" type="Button" parent="optionSelect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_fymmf")
+text = "BACK
+"
+
 [node name="saveBTN" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -407,6 +520,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ldlqw")
 text = "Save"
 
 [node name="clearBTN" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -425,7 +539,14 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_03nrn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ldlqw")
 text = "Clear"
 
+[node name="sfx_save" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3d6tq")
+
+[node name="sfx_select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ixqpu")
+
 [connection signal="pressed" from="VBoxContainer/btn_play" to="." method="_on_btn_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/btn_options" to="." method="_on_btn_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/btn_exit" to="." method="_on_btn_exit_pressed"]
 [connection signal="pressed" from="playSelect/vboxCustom/btn_set1" to="." method="_on_btn_set_1_pressed"]
 [connection signal="pressed" from="playSelect/vboxCustom/btn_set2" to="." method="_on_btn_set_2_pressed"]
@@ -434,5 +555,9 @@ text = "Clear"
 [connection signal="pressed" from="playSelect/cSet_edit/back_cSet" to="." method="_on_back_c_set_pressed"]
 [connection signal="pressed" from="playSelect/cSet_edit/confirm_cSet" to="." method="_on_confirm_c_set_pressed"]
 [connection signal="pressed" from="playSelect/cSet_edit/play_cSet" to="." method="_on_play_c_set_pressed"]
+[connection signal="pressed" from="optionSelect/vboxCont/clearBTN" to="." method="_on_clear_btn_pressed"]
+[connection signal="drag_ended" from="optionSelect/vboxCont/hslid_difficulty" to="." method="_on_hslid_difficulty_drag_ended"]
+[connection signal="drag_started" from="optionSelect/vboxCont/hslid_difficulty" to="." method="_on_hslid_difficulty_drag_started"]
+[connection signal="pressed" from="optionSelect/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="saveBTN" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="clearBTN" to="." method="_on_clear_btn_pressed"]

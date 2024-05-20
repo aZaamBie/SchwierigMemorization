@@ -13,7 +13,8 @@ config_version=5
 config/name="Schwierig Memorization"
 run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="res://Assets/bootSplash.png"
+config/icon="res://Assets/logo_schwierigMem.png"
 
 [autoload]
 

@@ -1,9 +1,9 @@
 extends Control
-
+### VARIABLES ###
 var currentSet : int = 1
 var currentSetContents
 
-### FUNCTIONS
+### FUNCTIONS ###
 func _ready():
 	pass # Replace with function body.
 	$playSelect.hide()
@@ -16,7 +16,9 @@ func _ready():
 func _process(delta):
 	pass
 	$optionSelect/vboxCont/lbl_difficulty.text = "Difficulty: " + str($optionSelect/vboxCont/hslid_difficulty.value)
-
+	$optionSelect/vboxCont/lbl_perfRnds/lbl_count.text = str(Globals.perfectScore)
+	
+	
 # MAIN(outer) BUTTONS
 func _on_btn_play_pressed():
 	$playSelect.show()

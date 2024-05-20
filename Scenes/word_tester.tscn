@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ce3t0gyrmlc10"]
+[gd_scene load_steps=42 format=3 uid="uid://ce3t0gyrmlc10"]
 
 [ext_resource type="Script" path="res://Scripts/manager/word_tester.gd" id="1_eg6ci"]
 [ext_resource type="Texture2D" uid="uid://og7e4gk7qvfo" path="res://Assets/images/tvscreen.png" id="1_gd24b"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://db4vprdki6hxt" path="res://Assets/audio/SFX/wrongBuzzer.wav" id="4_1y5p6"]
 [ext_resource type="AudioStream" uid="uid://byuvf7jb3j80u" path="res://Assets/audio/SFX/roundFinished_win.wav" id="5_epwg4"]
 [ext_resource type="AudioStream" uid="uid://dh2aajdshc4ha" path="res://Assets/audio/SFX/scream-noooh.wav" id="6_aacvp"]
+[ext_resource type="Texture2D" uid="uid://bdtsv2e7bo7d4" path="res://Assets/images/Timer-Box.png" id="7_5rwac"]
 [ext_resource type="FontFile" uid="uid://0br8dv4wn5vl" path="res://Assets/fonts/Blazed.ttf" id="7_30reb"]
 [ext_resource type="Script" path="res://Scripts/manager/pauseMenu.gd" id="8_qtqwf"]
 [ext_resource type="Texture2D" uid="uid://hov46vl1owhe" path="res://Assets/images/fx_fire.png" id="8_t2g37"]
@@ -322,6 +323,33 @@ _data = {
 "roundWIN": SubResource("Animation_aipv3")
 }
 
+[sub_resource type="Animation" id="Animation_af5aw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:pivot_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(89.51, 18.355)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(216, 345)]
+}
+
 [sub_resource type="Animation" id="Animation_litl7"]
 resource_name = "loop"
 length = 1.7
@@ -351,37 +379,25 @@ tracks/1/keys = {
 "values": [Vector2(216, 345), Vector2(216, 341.76), Vector2(216, 345)]
 }
 
-[sub_resource type="Animation" id="Animation_af5aw"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_japig"]
+_data = {
+"RESET": SubResource("Animation_af5aw"),
+"loop": SubResource("Animation_litl7")
+}
+
+[sub_resource type="Animation" id="Animation_vjlk6"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:pivot_offset")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(89.51, 18.355)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(216, 345)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_japig"]
-_data = {
-"RESET": SubResource("Animation_af5aw"),
-"loop": SubResource("Animation_litl7")
+"values": [Vector2(259, 344)]
 }
 
 [sub_resource type="Animation" id="Animation_4rb2c"]
@@ -399,21 +415,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(259, 344), Vector2(259, 335), Vector2(259, 344)]
-}
-
-[sub_resource type="Animation" id="Animation_vjlk6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(259, 344)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_keycr"]
@@ -509,7 +510,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -522,6 +523,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FxFire:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_0laqv"]
@@ -622,6 +635,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FxFire:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8io4c"]
@@ -904,6 +929,26 @@ libraries = {
 "": SubResource("AnimationLibrary_nrhce")
 }
 
+[node name="lbl_timer" type="Label" parent="Screen/Display"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.5
+offset_top = -39.0
+offset_right = 16.5
+offset_bottom = -16.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "??:??"
+horizontal_alignment = 1
+
+[node name="timerBox" type="Sprite2D" parent="Screen/Display/lbl_timer"]
+show_behind_parent = true
+position = Vector2(21, 9)
+scale = Vector2(1.8125, 1.39063)
+texture = ExtResource("7_5rwac")
+
 [node name="btn_nxtlvl" type="Button" parent="Screen"]
 visible = false
 layout_mode = 1
@@ -958,7 +1003,7 @@ anchor_bottom = 0.5
 offset_left = 27.0
 offset_top = -91.5
 offset_right = 286.0
-offset_bottom = -28.4999
+offset_bottom = -28.5
 grow_vertical = 2
 rotation = -0.261799
 pivot_offset = Vector2(69, 0)
@@ -979,6 +1024,7 @@ libraries = {
 }
 
 [node name="FxFire" type="Sprite2D" parent="Screen/lbl_Perfect"]
+visible = false
 show_behind_parent = true
 position = Vector2(114.727, 7.07604)
 rotation = 0.120428
@@ -1040,6 +1086,7 @@ grow_vertical = 2
 color = Color(0.266667, 0.192157, 0.156863, 1)
 
 [node name="lbl_indicator" type="Label" parent="input/box"]
+layout_mode = 0
 offset_left = 4.67532
 offset_top = -20.2
 offset_right = 74.6753
@@ -1183,3 +1230,4 @@ text = "QUIT GAME"
 [connection signal="pressed" from="pause/VBoxContainer/btn_Options" to="pause" method="_on_btn_options_pressed"]
 [connection signal="pressed" from="pause/VBoxContainer/btn_Menu" to="pause" method="_on_btn_menu_pressed"]
 [connection signal="pressed" from="pause/VBoxContainer/btn_Quit" to="pause" method="_on_btn_quit_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

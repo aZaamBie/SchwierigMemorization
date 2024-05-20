@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://22u0rtj4y54j"]
+[gd_scene load_steps=21 format=3 uid="uid://22u0rtj4y54j"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_b6f8g"]
 [ext_resource type="AudioStream" uid="uid://bjqxt4iipx5j" path="res://Assets/audio/interface/confirmation_002.ogg" id="2_3d6tq"]
+[ext_resource type="Texture2D" uid="uid://dpkqu6lgsjnx7" path="res://Assets/images/fire-emoji-emoji-1590x2048-6otfvrar.png" id="2_lcb0m"]
 [ext_resource type="AudioStream" uid="uid://dw3h1oyj0ah5l" path="res://Assets/audio/interface/select_005.ogg" id="3_ixqpu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp6my"]
@@ -121,6 +122,11 @@ shadow_offset = Vector2(5, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uaty2"]
 bg_color = Color(0.352941, 0.137255, 0.52549, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ndkac"]
+texture = ExtResource("2_lcb0m")
+expand_margin_top = 5.0
+expand_margin_bottom = 2.0
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -456,7 +462,7 @@ anchor_right = 0.908333
 anchor_bottom = 0.6775
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 metadata/_edit_use_anchors_ = true
 
 [node name="clearBTN" type="Button" parent="optionSelect/vboxCont"]
@@ -470,6 +476,10 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_03nrn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ldlqw")
 text = "Clear Data (Custom sets)"
 
+[node name="btn_separate_01" type="Button" parent="optionSelect/vboxCont"]
+layout_mode = 2
+disabled = true
+
 [node name="lbl_difficulty" type="Label" parent="optionSelect/vboxCont"]
 layout_mode = 2
 text = "Difficulty:"
@@ -478,9 +488,55 @@ text = "Difficulty:"
 layout_mode = 2
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_uaty2")
 min_value = 0.1
-max_value = 2.0
+max_value = 4.0
 step = 0.05
-value = 1.0
+value = 2.0
+
+[node name="btn_separate_02" type="Button" parent="optionSelect/vboxCont"]
+layout_mode = 2
+disabled = true
+
+[node name="lbl_perfRnds" type="Label" parent="optionSelect/vboxCont"]
+layout_mode = 2
+text = "Number of Perfect-rounds:"
+
+[node name="lbl_count" type="Label" parent="optionSelect/vboxCont/lbl_perfRnds"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.933333, 0.956863, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/normal = SubResource("StyleBoxTexture_ndkac")
+text = "0"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="optionSelect/vboxCont/lbl_perfRnds"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.9996
+offset_top = -24.5
+offset_right = 19.0004
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_lcb0m")
+expand_mode = 1
 
 [node name="back" type="Button" parent="optionSelect"]
 layout_mode = 1

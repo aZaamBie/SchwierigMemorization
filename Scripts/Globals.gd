@@ -1,7 +1,6 @@
 extends Node
-
+### VARIABLES ###
 var savePath = "user://schwieirgMem_save.txt"
-#var savePath_2 = "C://Users/name/Downloads"
 
 var difficulty_ : float = 1.0
 var perfectScore : int
@@ -12,7 +11,7 @@ var cSet1 : Array
 var cSet2 : Array
 var cSet3 : Array
 
-# Called when the node enters the scene tree for the first time.
+### FUNCTIONS ###
 func _ready():
 	pass # Replace with function body.
 	#if perfectScore == TYPE_NIL:
@@ -29,7 +28,8 @@ func clearSets():
 	cSet1 = []
 	cSet2 = []
 	cSet3 = []
-	
+	difficulty_ = 1.0
+	perfectScore = 0
 	save_score()
 
 ## SAVE & LOAD
@@ -62,15 +62,15 @@ func load_score():
 		difficulty_ = file.get_var()
 		perfectScore = file.get_var()
 		
-		print(cSet1, "after loading")
-		print(cSet2, "after loading")
-		print(cSet3, "after loading")
+		print(cSet1, "= cSet1 after loading")
+		print(cSet2, "= cSet2 after loading")
+		print(cSet3, "= cSet3 after loading")
 	else:
 		print("file not found")
 		cSet1 = []
 		cSet2 = []
 		cSet3 = []
 		
-		difficulty_ = 1.0
+		difficulty_ = 1.5
 		perfectScore = 0
 		#highscore = 0

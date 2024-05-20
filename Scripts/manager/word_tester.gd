@@ -1,16 +1,17 @@
 extends Control
-### VARIABLES
+### VARIABLES ###
 
 @export var lvlIncFactor : float = 1.0
+@export var increasefactor : float = 0.5
 @export_range(0.1,2.0) var loadSpeed : float = 1.0
 
 @export var wordList_tst : Array = ["Physics", "Math", "Computer Science"]
 
 @onready var txtHold = $Screen/txtScreen
 @onready var animFdback = $Screen/Display/animFeedback
+@onready var timer_ = $Timer
 
-
-var timerDur : float = 5.0 # default countdown timer
+var timerDur : float = 1.0 # default countdown timer
 
 var currentList
 var currentLvl = 1
@@ -26,7 +27,7 @@ var intro_ : bool = false
 var canType : bool = false
 var lvlFinished : bool = false
 
-### FUNCTIONS
+### FUNCTIONS ###
 func _ready():
 	loadSpeed = Globals.difficulty_ # connect the local to the Global difficulty variable
 	
@@ -34,21 +35,39 @@ func _ready():
 		currentList = wordList_tst
 	else:
 		currentList = Globals.currentSet_play # otherwise, use the set that player chose
+		currentList = configList(currentList)
 	
 	mainStart()
 
 
-func _process(delta):
-	pass
-	#if !intro_:
-		#mainLoop()
-	#while !lvlFinished and canType:
-		#pass
+func configList(list_):
+	var newList_ = []
+	for i in list_:
+		if i == "": pass
+		else: newList_.append(i)
+	
+	return newList_
 
+func timer(delta_): # countdown timer
+	timerDur -= delta_
+	var min : int = fmod(timerDur,3600) / 60
+	var sec : int = fmod(timerDur,60)
+	var msec : int = fmod(timerDur,1) * 1000
+
+	$Screen/Display/lbl_timer.text = str(sec).pad_zeros(2) + ":" + str(msec).pad_zeros(2)
+	#$Screen/Display/lbl_timer.text = ( "%0.2d" % sec) + ":" + ( "%0.2d" % msec)
+func _process(delta):
+	if canType and !lvlFinished:
+		timer(delta)
+	if timerDur <= 0.0 and canType and !lvlFinished:
+		canType = false
+		lvlFinished = true
+		levelFinished()
+		set_process(false)
 
 func _input(event):
 	if Input.is_key_pressed(KEY_ENTER) and canType:
-		checkFinish() 
+		#checkFinish() 
 		
 		if $input/box/text.has_focus(): # Disables the "enter" for the text edit. 
 			#BUG causes problems when submitting the current input. It would clear text BUT go to next line.
@@ -69,15 +88,18 @@ func _input(event):
 		
 		IND_list += 1
 		
-		await  get_tree().create_timer(1.5).timeout
+		await  get_tree().create_timer(1).timeout
 		checkFinish()
 
 
 
 func mainStart():
 	# initialize buttons, text box cleared, loadSpeed
+	set_process(true)
+	lvlFinished = false
 	cntCorrect = 0
 	cntIncorrect = 0
+	IND_list = 0
 	
 	$Screen/btn_nxtlvl.disabled = true
 	$Screen/btn_nxtlvl.hide()
@@ -92,6 +114,8 @@ func mainStart():
 	$Screen/Display/lvl.text = "Level: " + str(currentLvl)
 	$input/box/text.clear()
 	$input/box/existWords/Panel/currentTXT.text = " "
+	
+	$Screen/Display/lbl_timer.text = "??:??"
 	
 	loadSpeed = Globals.difficulty_
 	
@@ -108,8 +132,13 @@ func mainStart():
 	showText(currentList)
 	
 	await get_tree().create_timer(0.5).timeout 
-	canType = true
+	
+	#canType = true
 	intro_ = false
+	
+	#timer_.wait_time = timerDur
+	#timer_.start()
+	#print(timer_.wait_time)
 	
 
 func showText(list_:Array):
@@ -118,12 +147,16 @@ func showText(list_:Array):
 			# get length of current word(s)
 			var len_ = len(i)
 			# roughly calculate the amount of time that text should stay up.
-			var duration = len_ / ( loadSpeed * 7)
+			var duration = len_ / ( loadSpeed * 7 * lvlIncFactor)  # ( loadSpeed * 7) 
 			
 			txtHold.show()
 			txtHold.text = str(i)
 			await get_tree().create_timer(duration).timeout 
 			txtHold.hide()
+			
+			if i == list_[len(list_)-1]: # if last word is hidden, then start the typing
+				canType = true
+			timerDur += float(duration*5) # add the durations to the countdown timer duration
 
 func addText(text_:String):
 	var userText = $input/box/existWords/Panel/currentTXT.text
@@ -135,10 +168,6 @@ func checkText(word,list,listInd):
 
 	if canType: # prevent text comparisons when disbaled (e.g. when text still showing, or when list finished)
 		checkFinish()
-		#print(listInd, " while", ( len(list) -2) )
-		#if (listInd>= (len(list)-1) ): # if (listInd>=len(list)):
-			#levelFinished()
-			#return
 		if word == list[listInd]:# and (listInd<= len(list)):
 			return true
 		else:
@@ -157,7 +186,10 @@ func displayRes(Correct:bool): # display the result
 ###--- ROUND CHECKS ---###
 
 func checkFinish(): # check whether level is finished
-	if (IND_list > (len(currentList)-1)): # first check whether list is finished; no more words in list # >=
+	#print(IND_list, " is IND_List")
+	#print(len(currentList), "is current legth")
+	
+	if (IND_list > (len(currentList)-1)) and canType: # first check whether list is finished; no more words in list # >=
 		levelFinished()
 		return
 
@@ -166,7 +198,7 @@ func levelFinished():
 	checkCounters(cntCorrect,cntIncorrect)
 
 func checkCounters(cnter1,cnter2):
-	if cnter1 > cnter2: # win phase
+	if cnter1 > cnter2 and IND_list == ( len(currentList) ): # win phase and timer not out
 		pass
 		animFdback.play("roundWIN")
 		
@@ -174,22 +206,12 @@ func checkCounters(cnter1,cnter2):
 		$Screen/btn_nxtlvl.disabled = false
 		$Screen/btn_nxtlvl.show()
 		
-		if cnter2==0: # no wrong answer; PERFECT ROUND
-			pass
+		if cnter2==0: # PERFECT ROUND (no wrong)
 			# enable the "PERFECT score counter"
 			$Screen/lbl_Perfect.show()
 			$Screen/lbl_Perfect/anim.play("loop")
 			Globals.perfectScore += 1
 			$Screen/lbl_Perfect/lbl_counter.text = "No. of perfect rounds: " + str(Globals.perfectScore)
-	
-	#elif cnter2==0: # no wrong answers ; PERFECT ROUND
-		#pass
-		## enable the "PERFECT score counter"
-		#$Screen/lbl_Perfect.show()
-		#$Screen/lbl_Perfect.show()
-		#$Screen/lbl_Perfect/anim.play("loop")
-		#Globals.perfectScore += 1
-		#$Screen/lbl_Perfect/lbl_counter.text = "No. of perfect rounds: " + str(Globals.perfectScore)
 	
 	else: # lose phase
 		animFdback.play("roundLOSE")
@@ -198,6 +220,7 @@ func checkCounters(cnter1,cnter2):
 		$Screen/btn_redo.disabled = false
 		$Screen/btn_redo.show()
 	
+	timer_.stop()
 	txtHold.show()
 	txtHold.text = "Correct: " + str(cntCorrect) + "\n" + "Incorrect: " + str(cntIncorrect)
 	
@@ -205,10 +228,15 @@ func checkCounters(cnter1,cnter2):
 
 
 func nextLevel(lvl_:int):
-	pass
 	currentLvl += 1
-	lvl_ += lvlIncFactor
-	loadSpeed = lvl_ # current loadspeed = new, changed loadspeed
+	
+	#lvl_ -= lvlIncFactor
+	#loadSpeed = lvl_ # current loadspeed = new, changed loadspeed
+	
+	lvlIncFactor += increasefactor #increase constant by 1. this should shorten the total duration
+	
+	
+	Globals.save_score()
 	mainStart()
 
 func _on_btn_redo_pressed():
@@ -219,4 +247,7 @@ func _on_btn_nxtlvl_pressed():
 	pass # Replace with function body.
 	nextLevel(Globals.difficulty_)
 
-
+func _on_timer_timeout():
+	canType = false
+	lvlFinished = true
+	levelFinished()

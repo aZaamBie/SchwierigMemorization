@@ -16,5 +16,9 @@ it should be located in this folder:
 C:\Users\USERNAME\AppData\Roaming\Godot\app_userdata\Schwierig Memorization
 ![image](https://github.com/aZaamBie/SchwierigMemorization/assets/53663013/b2cf2b03-c5d4-4c8a-aabe-f31ff3ff79a4)
 
+Download:
+---
+Itch.io: https://azambie.itch.io/schwierigmemorization
+
 ---
 This was developed in the Godot 4.2 Engine

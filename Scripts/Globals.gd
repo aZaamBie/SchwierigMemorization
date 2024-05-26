@@ -10,6 +10,9 @@ var currentSet_play : Array = []
 var cSet1 : Array
 var cSet2 : Array
 var cSet3 : Array
+var setPhy : Array = ["Newton", "Einstein", "Pascal", "Hooke"]
+var setMam : Array = ["Calculus", "Integrals", "Derivative", "Linear differential equation", "Optimisation"]
+var setCS : Array = ["Selection", "Iteration", "String", "Array", " Function", "Recursion"]
 
 ### FUNCTIONS ###
 func _ready():
@@ -19,7 +22,6 @@ func _ready():
 	load_score()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
@@ -35,11 +37,18 @@ func clearSets():
 ## SAVE & LOAD
 func save_score():
 	var file = FileAccess.open(savePath, FileAccess.WRITE)
-
+	
+	# custom sets
 	file.store_var(cSet1)
 	file.store_var(cSet2)
 	file.store_var(cSet3)
 	
+	# predefined sets
+	file.store_var(setPhy)
+	file.store_var(setMam)
+	file.store_var(setCS)
+	
+	# scores
 	file.store_var(difficulty_)
 	file.store_var(perfectScore)
 	
@@ -51,13 +60,19 @@ func save_score():
 		#print(docs)
 
 func load_score():
+	# to opem save file go to:
+	# C:\Users\"username"\AppData\Roaming\Godot\app_userdata\Schwierig Memorization
 	if FileAccess.file_exists(savePath):
 		print("file found")
 		var file = FileAccess.open(savePath, FileAccess.READ)
-		#highscore = file.get_var()
+
 		cSet1 = file.get_var()
 		cSet2 = file.get_var()
 		cSet3 = file.get_var()
+		
+		setPhy = file.get_var()
+		setMam = file.get_var()
+		setCS = file.get_var()
 		
 		difficulty_ = file.get_var()
 		perfectScore = file.get_var()
@@ -70,6 +85,10 @@ func load_score():
 		cSet1 = []
 		cSet2 = []
 		cSet3 = []
+		
+		setPhy  = ["Newton", "Einstein", "Pascal", "Hooke"]
+		setMam = ["Calculus", "Integrals", "Derivative", "Linear differential equation", "Optimisation"]
+		setCS = ["Selection", "Iteration", "String", "Array", " Function", "Recursion"]
 		
 		difficulty_ = 1.5
 		perfectScore = 0

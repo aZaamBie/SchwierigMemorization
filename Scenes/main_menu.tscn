@@ -265,15 +265,15 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lqjlj")
 text = "CHOOSE SET:"
 horizontal_alignment = 1
 
-[node name="btn_set1" type="Button" parent="playSelect/vboxCont"]
+[node name="btn_setPHY" type="Button" parent="playSelect/vboxCont"]
 layout_mode = 2
 text = "PHYSICS"
 
-[node name="btn_set2" type="Button" parent="playSelect/vboxCont"]
+[node name="btn_setMAM" type="Button" parent="playSelect/vboxCont"]
 layout_mode = 2
 text = "MATH"
 
-[node name="btn_set3" type="Button" parent="playSelect/vboxCont"]
+[node name="btn_setCS" type="Button" parent="playSelect/vboxCont"]
 layout_mode = 2
 text = "COMPUTER SCIENCE
 "
@@ -604,6 +604,9 @@ stream = ExtResource("3_ixqpu")
 [connection signal="pressed" from="VBoxContainer/btn_play" to="." method="_on_btn_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/btn_options" to="." method="_on_btn_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/btn_exit" to="." method="_on_btn_exit_pressed"]
+[connection signal="pressed" from="playSelect/vboxCont/btn_setPHY" to="." method="_on_btn_set_phy_pressed"]
+[connection signal="pressed" from="playSelect/vboxCont/btn_setMAM" to="." method="_on_btn_set_mam_pressed"]
+[connection signal="pressed" from="playSelect/vboxCont/btn_setCS" to="." method="_on_btn_set_cs_pressed"]
 [connection signal="pressed" from="playSelect/vboxCustom/btn_set1" to="." method="_on_btn_set_1_pressed"]
 [connection signal="pressed" from="playSelect/vboxCustom/btn_set2" to="." method="_on_btn_set_2_pressed"]
 [connection signal="pressed" from="playSelect/vboxCustom/btn_set3" to="." method="_on_btn_set_3_pressed"]

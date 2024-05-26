@@ -56,6 +56,21 @@ func checkCustoms():
 		$playSelect/vboxCustom/btn_set3.text = "Set 3 (" + str(len_) + " elements)"
 		#print("Custom set 3 not empty anymore")
 
+## BUTTON PRESSES
+func _on_btn_set_phy_pressed():
+	pass # Replace with function body.
+	currentSet = 11
+	openCset(Globals.setPhy, "[hysucs]") #1
+
+func _on_btn_set_mam_pressed():
+	pass # Replace with function body.
+	currentSet = 12
+	openCset(Globals.setMam, "Mathematics") # 2
+
+func _on_btn_set_cs_pressed():
+	pass # Replace with function body.
+	currentSet = 13
+	openCset(Globals.setCS, "Computer Science") # 2
 
 func _on_btn_set_1_pressed():
 	#if Globals.cSet1 == []:
@@ -64,16 +79,14 @@ func _on_btn_set_1_pressed():
 	openCset(Globals.cSet1, 1) # (Globals.cSet1)
 	
 func _on_btn_set_2_pressed():
-	#if Globals.cSet2 == []:
 	currentSet = 2
-	#currentSet = Globals.cSet2
 	openCset(Globals.cSet2, 2) # (Globals.cSet2)
 	
 func _on_btn_set_3_pressed():
-	#if Globals.cSet3 == []:
 	currentSet = 3
-	#currentSet = Globals.cSet3
 	openCset(Globals.cSet3, 3) # (Globals.cSet3)
+
+##
 
 func openCset(contents, setIND=null):
 	print(currentSet, " is the current set")
@@ -104,15 +117,21 @@ func _on_confirm_c_set_pressed():
 	var wordList = []
 	
 	wordList = $playSelect/cSet_edit.text.split("\n") # separate text by the newline char; put into array
-	
-	#currentSetContents = wordList
-	
+	# custom sets
 	if currentSet == 1:
 		Globals.cSet1 = wordList#currentSetContents 
 	elif currentSet == 2:
 		Globals.cSet2 = wordList#currentSetContents
 	elif currentSet == 3:
 		Globals.cSet3 = wordList#currentSetContents
+	
+	elif currentSet == 11:
+		Globals.setPhy = wordList
+	elif currentSet == 12:
+		Globals.setMam = wordList
+	elif currentSet == 13:
+		Globals.setCS = wordList
+	
 	
 	currentSetContents = wordList
 	
@@ -148,3 +167,5 @@ func _on_hslid_difficulty_drag_ended(value_changed):
 func _on_hslid_difficulty_drag_started():
 	pass # Replace with function body.
 	#$optionSelect/vboxCont/lbl_difficulty.text = "Difficulty: " + str($optionSelect/vboxCont/hslid_difficulty.value)
+
+

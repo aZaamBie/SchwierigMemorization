@@ -66,13 +66,18 @@ func _process(delta):
 		set_process(false)
 
 func _input(event):
+	#if event is InputEventKey and ( event.key_label == KEY_SPACE or event.key_label == KEY_ENTER ): # for spaces
+		#get_viewport().set_input_as_handled()
 	if Input.is_key_pressed(KEY_ENTER) and canType:
 		#checkFinish() 
 		
 		if $input/box/text.has_focus(): # Disables the "enter" for the text edit. 
 			#BUG causes problems when submitting the current input. It would clear text BUT go to next line.
-			if event.key_label == KEY_ENTER: #if event.key_label == KEY_SPACE or event.key_label == KEY_ENTER:
+			# NEW BUG: Invalid get index 'key_label' (on base: 'InputEventMouseMotion').
+			if event.key_label == KEY_ENTER and event != InputEventMouseMotion: #if event.key_label == KEY_SPACE or event.key_label == KEY_ENTER:
 				get_viewport().set_input_as_handled()
+			#if event is InputEventKey and ( event.key_label == KEY_SPACE or event.key_label == KEY_ENTER ):
+				#get_viewport().set_input_as_handled()
 
 		var txt_ = $input/box/text.text 
 		

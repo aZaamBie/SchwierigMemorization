@@ -115,8 +115,16 @@ func closeCset():
 
 func _on_confirm_c_set_pressed():
 	var wordList = []
+	var confirm : bool = false
 	
 	wordList = $playSelect/cSet_edit.text.split("\n") # separate text by the newline char; put into array
+	
+	if len(wordList) >=2:
+		confirm = true
+	else:
+		pass
+		OS.alert("You need two or more items in a list to continue!","Can't confirm!!")
+	
 	# custom sets
 	if currentSet == 1:
 		Globals.cSet1 = wordList#currentSetContents 
@@ -135,7 +143,10 @@ func _on_confirm_c_set_pressed():
 	
 	currentSetContents = wordList
 	
-	$playSelect/cSet_edit/play_cSet.disabled = false
+	if confirm:
+		$playSelect/cSet_edit/play_cSet.disabled = false
+	else:
+		pass
 
 func _on_back_c_set_pressed():
 	closeCset()
@@ -163,9 +174,3 @@ func _on_play_c_set_pressed():
 func _on_hslid_difficulty_drag_ended(value_changed):
 	pass # Replace with function body.
 	Globals.difficulty_ = $optionSelect/vboxCont/hslid_difficulty.value
-
-func _on_hslid_difficulty_drag_started():
-	pass # Replace with function body.
-	#$optionSelect/vboxCont/lbl_difficulty.text = "Difficulty: " + str($optionSelect/vboxCont/hslid_difficulty.value)
-
-

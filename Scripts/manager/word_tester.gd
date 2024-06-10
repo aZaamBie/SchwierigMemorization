@@ -55,7 +55,7 @@ func timer(delta_): # countdown timer
 	var msec : int = fmod(timerDur,1) * 1000
 
 	$Screen/Display/lbl_timer.text = str(sec).pad_zeros(2) + ":" + str(msec).pad_zeros(2)
-	#$Screen/Display/lbl_timer.text = ( "%0.2d" % sec) + ":" + ( "%0.2d" % msec)
+
 func _process(delta):
 	if canType and !lvlFinished:
 		timer(delta)
@@ -97,7 +97,6 @@ func _input(event):
 		checkFinish()
 
 
-
 func mainStart():
 	# initialize buttons, text box cleared, loadSpeed
 	set_process(true)
@@ -106,15 +105,19 @@ func mainStart():
 	cntIncorrect = 0
 	IND_list = 0
 	
+	#buttons
 	$Screen/btn_nxtlvl.disabled = true
 	$Screen/btn_nxtlvl.hide()
 	
 	$Screen/btn_redo.disabled = true
 	$Screen/btn_redo.hide()
 	
+	$Screen/Display/btn_mainMenu.disabled = true
+	$Screen/Display/btn_mainMenu.hide()
+	
+	# labels
 	$Screen/lbl_Perfect.hide()
 	$Screen/lbl_Perfect/sfx_fire.stop()
-	
 	
 	$Screen/Display/lvl.text = "Level: " + str(currentLvl)
 	$input/box/text.clear()
@@ -137,14 +140,8 @@ func mainStart():
 	showText(currentList)
 	
 	await get_tree().create_timer(0.5).timeout 
-	
-	#canType = true
+
 	intro_ = false
-	
-	#timer_.wait_time = timerDur
-	#timer_.start()
-	#print(timer_.wait_time)
-	
 
 func showText(list_:Array):
 	for i in list_:
@@ -166,18 +163,15 @@ func showText(list_:Array):
 func addText(text_:String):
 	var userText = $input/box/existWords/Panel/currentTXT.text
 	$input/box/text.clear() # clear text box after text was submitted
-	#$input/box/text.placeholder_text = "..."
 
 
 func checkText(word,list,listInd):
-
 	if canType: # prevent text comparisons when disbaled (e.g. when text still showing, or when list finished)
 		checkFinish()
-		if word == list[listInd]:# and (listInd<= len(list)):
+		if word == list[listInd] and (listInd<= len(list)):
 			return true
 		else:
 			return false
-	
 
 func displayRes(Correct:bool): # display the result
 	if Correct:
@@ -191,8 +185,6 @@ func displayRes(Correct:bool): # display the result
 ###--- ROUND CHECKS ---###
 
 func checkFinish(): # check whether level is finished
-	#print(IND_list, " is IND_List")
-	#print(len(currentList), "is current legth")
 	
 	if (IND_list > (len(currentList)-1)) and canType: # first check whether list is finished; no more words in list # >=
 		levelFinished()
@@ -203,8 +195,11 @@ func levelFinished():
 	checkCounters(cntCorrect,cntIncorrect)
 
 func checkCounters(cnter1,cnter2):
+	# first show the main menu button
+	$Screen/Display/btn_mainMenu.show()
+	$Screen/Display/btn_mainMenu.disabled = false
+	
 	if cnter1 > cnter2 and IND_list == ( len(currentList) ): # win phase and timer not out
-		pass
 		animFdback.play("roundWIN")
 		
 		# enable the next level button
@@ -235,21 +230,19 @@ func checkCounters(cnter1,cnter2):
 func nextLevel(lvl_:int):
 	currentLvl += 1
 	
-	#lvl_ -= lvlIncFactor
-	#loadSpeed = lvl_ # current loadspeed = new, changed loadspeed
-	
 	lvlIncFactor += increasefactor #increase constant by 1. this should shorten the total duration
-	
 	
 	Globals.save_score()
 	mainStart()
 
+func _on_btn_main_menu_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+
 func _on_btn_redo_pressed():
-	pass # Replace with function body.
 	mainStart()
 
 func _on_btn_nxtlvl_pressed():
-	pass # Replace with function body.
 	nextLevel(Globals.difficulty_)
 
 func _on_timer_timeout():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ce3t0gyrmlc10"]
+[gd_scene load_steps=45 format=3 uid="uid://ce3t0gyrmlc10"]
 
 [ext_resource type="Script" path="res://Scripts/manager/word_tester.gd" id="1_eg6ci"]
 [ext_resource type="Texture2D" uid="uid://og7e4gk7qvfo" path="res://Assets/images/tvscreen.png" id="1_gd24b"]
@@ -323,6 +323,33 @@ _data = {
 "roundWIN": SubResource("Animation_aipv3")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0id0d"]
+bg_color = Color(0.627451, 0.192157, 0.180392, 0.709804)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_size = 2
+shadow_offset = Vector2(2.31, 3.245)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1ktl"]
+bg_color = Color(1, 0.305882, 0.286275, 0.815686)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_size = 2
+shadow_offset = Vector2(2.31, 3.245)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8uou"]
+bg_color = Color(0.443137, 0.133333, 0.12549, 0.780392)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_size = 2
+shadow_offset = Vector2(2.31, 3.245)
+
 [sub_resource type="Animation" id="Animation_af5aw"]
 length = 0.001
 tracks/0/type = "value"
@@ -376,7 +403,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.7, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(216, 345), Vector2(216, 341.76), Vector2(216, 345)]
+"values": [Vector2(216, 330), Vector2(216, 335), Vector2(216, 330)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_japig"]
@@ -414,7 +441,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.7, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(259, 344), Vector2(259, 335), Vector2(259, 344)]
+"values": [Vector2(259, 330), Vector2(259, 335), Vector2(259, 330)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_keycr"]
@@ -916,7 +943,7 @@ offset_top = -23.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.27451, 0.607843, 0.270588, 1)
+theme_override_colors/font_color = Color(1, 0.141176, 0.0235294, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_y = 1
@@ -949,6 +976,25 @@ position = Vector2(21, 9)
 scale = Vector2(1.8125, 1.39063)
 texture = ExtResource("7_5rwac")
 
+[node name="btn_mainMenu" type="Button" parent="Screen/Display"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -43.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_0id0d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s1ktl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_n8uou")
+text = "Main Menu"
+
 [node name="btn_nxtlvl" type="Button" parent="Screen"]
 visible = false
 layout_mode = 1
@@ -974,6 +1020,7 @@ libraries = {
 autoplay = "loop"
 
 [node name="btn_redo" type="Button" parent="Screen"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1048,6 +1095,7 @@ visible_characters = 0
 visible_ratio = 0.0
 
 [node name="fade" type="TextureRect" parent="."]
+process_mode = 4
 editor_description = "https://toppng.com/img-download/stock/164272
 "
 visible = false
@@ -1223,6 +1271,7 @@ text = "QUIT GAME"
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="pressed" from="Screen/Display/btn_mainMenu" to="." method="_on_btn_main_menu_pressed"]
 [connection signal="pressed" from="Screen/btn_nxtlvl" to="." method="_on_btn_nxtlvl_pressed"]
 [connection signal="pressed" from="Screen/btn_redo" to="." method="_on_btn_redo_pressed"]
 [connection signal="gutter_clicked" from="input/box/text" to="." method="_on_text_gutter_clicked"]

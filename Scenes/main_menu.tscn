@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://22u0rtj4y54j"]
+[gd_scene load_steps=24 format=3 uid="uid://22u0rtj4y54j"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_b6f8g"]
 [ext_resource type="AudioStream" uid="uid://bjqxt4iipx5j" path="res://Assets/audio/interface/confirmation_002.ogg" id="2_3d6tq"]
@@ -127,6 +127,33 @@ bg_color = Color(0.352941, 0.137255, 0.52549, 1)
 texture = ExtResource("2_lcb0m")
 expand_margin_top = 5.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mi6t"]
+bg_color = Color(0.513726, 0.133333, 0.0941176, 0.729412)
+skew = Vector2(0.2, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.258824, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gx1vk"]
+bg_color = Color(0.796078, 0.207843, 0.145098, 0.729412)
+skew = Vector2(0.2, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.258824, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q1shd"]
+bg_color = Color(0.333333, 0.0862745, 0.0627451, 0.847059)
+skew = Vector2(0.2, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.258824, 0.184314, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -358,6 +385,43 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_5h44p")
 placeholder_text = "Enter words for set"
 metadata/_edit_use_anchors_ = true
 
+[node name="config_numWords" type="Panel" parent="playSelect/cSet_edit"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -190.002
+offset_top = -71.5
+offset_right = -0.00195313
+offset_bottom = 71.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ttl_numWords" type="Label" parent="playSelect/cSet_edit/config_numWords"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Number of lines tested:
+max"
+autowrap_mode = 1
+
+[node name="hslid_numWords" type="HSlider" parent="playSelect/cSet_edit/config_numWords"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 2.0
+value = 100.0
+
 [node name="back_cSet" type="Button" parent="playSelect/cSet_edit"]
 layout_mode = 1
 anchors_preset = 3
@@ -553,6 +617,21 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_fymmf")
 text = "BACK
 "
 
+[node name="btn_openDataFolder" type="Button" parent="optionSelect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -34.0
+offset_right = 145.0
+offset_bottom = -3.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_5mi6t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gx1vk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q1shd")
+text = "Open Save folder"
+
 [node name="saveBTN" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -611,6 +690,7 @@ stream = ExtResource("3_ixqpu")
 [connection signal="pressed" from="playSelect/vboxCustom/btn_set2" to="." method="_on_btn_set_2_pressed"]
 [connection signal="pressed" from="playSelect/vboxCustom/btn_set3" to="." method="_on_btn_set_3_pressed"]
 [connection signal="pressed" from="playSelect/back" to="." method="_on_back_pressed"]
+[connection signal="drag_ended" from="playSelect/cSet_edit/config_numWords/hslid_numWords" to="." method="_on_hslid_num_words_drag_ended"]
 [connection signal="pressed" from="playSelect/cSet_edit/back_cSet" to="." method="_on_back_c_set_pressed"]
 [connection signal="pressed" from="playSelect/cSet_edit/confirm_cSet" to="." method="_on_confirm_c_set_pressed"]
 [connection signal="pressed" from="playSelect/cSet_edit/play_cSet" to="." method="_on_play_c_set_pressed"]
@@ -618,5 +698,6 @@ stream = ExtResource("3_ixqpu")
 [connection signal="drag_ended" from="optionSelect/vboxCont/hslid_difficulty" to="." method="_on_hslid_difficulty_drag_ended"]
 [connection signal="drag_started" from="optionSelect/vboxCont/hslid_difficulty" to="." method="_on_hslid_difficulty_drag_started"]
 [connection signal="pressed" from="optionSelect/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="optionSelect/btn_openDataFolder" to="." method="_on_btn_open_data_folder_pressed"]
 [connection signal="pressed" from="saveBTN" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="clearBTN" to="." method="_on_clear_btn_pressed"]

@@ -2,10 +2,10 @@ extends Control
 ### VARIABLES ###
 var currentSet : int = 1
 var currentSetContents
+#var numWordsToTest : int = 2
 
 ### FUNCTIONS ###
 func _ready():
-	pass # Replace with function body.
 	$playSelect.hide()
 	$optionSelect.hide()
 	
@@ -32,6 +32,9 @@ func _on_back_pressed():
 	$optionSelect.hide()
 	$sfx_select.play()
 
+func _on_btn_open_data_folder_pressed():
+	Globals.openDataFolder()
+
 func _on_btn_exit_pressed():
 	get_tree().quit()
 
@@ -42,19 +45,16 @@ func checkCustoms():
 	else:
 		len_ = len(Globals.cSet1)
 		$playSelect/vboxCustom/btn_set1.text = "Set 1 (" + str(len_) + " elements)"
-		#print("Custom set 1 not empty anymore")
 	
 	if Globals.cSet2 == []: $playSelect/vboxCustom/btn_set2.text = "Set 2 (empty)"
 	else:
 		len_ = len(Globals.cSet2)
 		$playSelect/vboxCustom/btn_set2.text = "Set 2 (" + str(len_) + " elements)"
-		#print("Custom set 2 not empty anymore")
 	
 	if Globals.cSet3 == []:$playSelect/vboxCustom/btn_set3.text = "Set 3 (empty)"
 	else:
 		len_ = len(Globals.cSet3)
 		$playSelect/vboxCustom/btn_set3.text = "Set 3 (" + str(len_) + " elements)"
-		#print("Custom set 3 not empty anymore")
 
 ## BUTTON PRESSES
 func _on_btn_set_phy_pressed():
@@ -95,14 +95,22 @@ func openCset(contents, setIND=null):
 	var cset = $playSelect/cSet_edit
 	cset.show()
 	
+	var lines_ : int
+	
 	if setIND!= null:
-		#$playSelect/cSet_edit.text = str( contents )
 		for i in contents:
+			lines_ += 1
 			if i=="": pass # dont count if character is blank
 			else: $playSelect/cSet_edit.text += str(i) + "\n" # otherwise, add characters to text box
 		
 		$playSelect/cSet_edit.placeholder_text = "Enter words for: set " + str(setIND)
-		
+	
+	# configure the number of elements to be tested
+	$playSelect/cSet_edit/config_numWords/ttl_numWords.text = "Number of lines tested: " + str(lines_)
+	$playSelect/cSet_edit/config_numWords/hslid_numWords.max_value = lines_
+	$playSelect/cSet_edit/config_numWords/hslid_numWords.value = lines_
+	
+	
 func closeCset():
 	var cset = $playSelect/cSet_edit
 	cset.hide()
@@ -110,8 +118,11 @@ func closeCset():
 	
 	$playSelect/cSet_edit.text = ""
 	checkCustoms()
-	
 
+func _on_hslid_num_words_drag_ended(value_changed):
+	pass # Replace with function body.
+	$playSelect/cSet_edit/config_numWords/ttl_numWords.text = "Number of lines tested: " + str($playSelect/cSet_edit/config_numWords/hslid_numWords.value)
+	
 
 func _on_confirm_c_set_pressed():
 	var wordList = []
@@ -164,7 +175,9 @@ func _on_clear_btn_pressed():
 
 
 func _on_play_c_set_pressed():
-	pass # Replace with function body.
+	# configure the number of words to be tested
+	Globals.numWordsToTest = $playSelect/cSet_edit/config_numWords/hslid_numWords.value
+	
 	Globals.currentSet_play = currentSetContents
 	get_tree().change_scene_to_file("res://Scenes/word_tester.tscn")
 
@@ -174,3 +187,6 @@ func _on_play_c_set_pressed():
 func _on_hslid_difficulty_drag_ended(value_changed):
 	pass # Replace with function body.
 	Globals.difficulty_ = $optionSelect/vboxCont/hslid_difficulty.value
+
+
+

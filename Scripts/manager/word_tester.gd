@@ -13,22 +13,26 @@ extends Control
 
 var timerDur : float = 1.0 # default countdown timer
 
+var originalList
 var currentList
 var currentLvl = 1
 var IND_list = 0 # index for the current
 
-var cntCorrect = 0
-var cntIncorrect = 0
+var cntCorrect = 0 # counter for correct
+var cntIncorrect = 0 # counter for incorrect
 
-var comboCount = 0
-var highestCombo = 0
+#var comboCount = 0
+#var highestCombo = 0
 
 var intro_ : bool = false
 var canType : bool = false
 var lvlFinished : bool = false
 
+### --------- ###
 ### FUNCTIONS ###
 func _ready():
+	randomize() 
+	
 	loadSpeed = Globals.difficulty_ # connect the local to the Global difficulty variable
 	
 	if Globals.currentSet_play == []: # if all data empty, then choose a test word list
@@ -36,16 +40,18 @@ func _ready():
 	else:
 		currentList = Globals.currentSet_play # otherwise, use the set that player chose
 		currentList = configList(currentList)
+		
+		originalList = Globals.currentSet_play # FOR THE OG
+		originalList = configList(originalList)
 	
 	mainStart()
 
 
-func configList(list_):
+func configList(list_:Array): # sets up the list; makes sure no empty characters are added to new list
 	var newList_ = []
 	for i in list_:
 		if i == "": pass
 		else: newList_.append(i)
-	
 	return newList_
 
 func timer(delta_): # countdown timer
@@ -66,25 +72,25 @@ func _process(delta):
 		set_process(false)
 
 func _input(event):
-	#if event is InputEventKey and ( event.key_label == KEY_SPACE or event.key_label == KEY_ENTER ): # for spaces
-		#get_viewport().set_input_as_handled()
 	if Input.is_key_pressed(KEY_ENTER) and canType:
-		#checkFinish() 
 		
 		if $input/box/text.has_focus(): # Disables the "enter" for the text edit. 
 			#BUG causes problems when submitting the current input. It would clear text BUT go to next line.
 			# NEW BUG: Invalid get index 'key_label' (on base: 'InputEventMouseMotion').
-			if event.key_label == KEY_ENTER and event != InputEventMouseMotion: #if event.key_label == KEY_SPACE or event.key_label == KEY_ENTER:
-				get_viewport().set_input_as_handled()
-			#if event is InputEventKey and ( event.key_label == KEY_SPACE or event.key_label == KEY_ENTER ):
+			
+			#if event.key_label == KEY_ENTER and event != InputEventMouseMotion: #if event.key_label == KEY_SPACE or event.key_label == KEY_ENTER:
 				#get_viewport().set_input_as_handled()
-
+			#else: pass
+			
+			if event != InputEventMouseMotion: #if event.key_label == KEY_SPACE or event.key_label == KEY_ENTER:
+				get_viewport().set_input_as_handled()
+			else: pass
+			
 		var txt_ = $input/box/text.text 
 		
 		addText(txt_)
 		
 		if checkText(txt_,currentList,IND_list):
-			pass
 			$input/box/existWords/Panel/currentTXT.text += txt_ + "; "
 			displayRes(true)
 		else:
@@ -98,6 +104,21 @@ func _input(event):
 
 
 func mainStart():
+	# randomize the list to be shown
+	randomize()
+	currentList.shuffle() # randomize the order of the current list
+	originalList.shuffle() # randomize the original UNSLICED list
+	
+	#print(Globals.numWordsToTest, " is GLOBAL VAR length")
+	#print(len(currentList), " is length from main start")
+	
+	if Globals.numWordsToTest > len(currentList): # check whether: global num of words surpasses current list len
+		Globals.numWordsToTest = len(currentList) # assign global to the current len
+		#print(Globals.numWordsToTest, " is GLOBAL VAR length")
+	
+	# slice out the desired number of elements to be tested. Start from first word
+	currentList = originalList.slice(0,Globals.numWordsToTest) # slice from original, unchanged list
+	
 	# initialize buttons, text box cleared, loadSpeed
 	set_process(true)
 	lvlFinished = false
@@ -127,7 +148,7 @@ func mainStart():
 	
 	loadSpeed = Globals.difficulty_
 	
-	# show text
+	#- show text
 	txtHold.text = "Memorise the words as fast as possible"
 	await get_tree().create_timer(1.5).timeout 
 	txtHold.text = "Then type those words in the order that they were presented"
@@ -137,11 +158,16 @@ func mainStart():
 	txtHold.text = "Go!"
 	await get_tree().create_timer(0.5).timeout 
 	
+	#randomize()
+	#currentList.shuffle() # randomize the order of the current list
+	
 	showText(currentList)
 	
 	await get_tree().create_timer(0.5).timeout 
 
 	intro_ = false
+
+
 
 func showText(list_:Array):
 	for i in list_:

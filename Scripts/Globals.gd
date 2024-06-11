@@ -7,6 +7,8 @@ var perfectScore : int
 
 var currentSet_play : Array = []
 
+var numWordsToTest : int = 2
+
 var cSet1 : Array
 var cSet2 : Array
 var cSet3 : Array
@@ -16,10 +18,8 @@ var setCS : Array = ["Selection", "Iteration", "String", "Array", " Function", "
 
 ### FUNCTIONS ###
 func _ready():
-	pass # Replace with function body.
-	#if perfectScore == TYPE_NIL:
-		#perfectScore = 0
-	load_score()
+	pass
+	load_score() # automatically load data when game starts
 
 
 func _process(delta):
@@ -51,13 +51,7 @@ func save_score():
 	# scores
 	file.store_var(difficulty_)
 	file.store_var(perfectScore)
-	
-	#var docs = OS.get_environment("HOME")# + "/Documents"
-	#if docs == "":
-		#pass
-		##docs = OS.get_environment("Documents")
-		#docs = OS.get_environment("USERPROFILE")
-		#print(docs)
+
 
 func load_score():
 	# to opem save file go to:
@@ -77,9 +71,10 @@ func load_score():
 		difficulty_ = file.get_var()
 		perfectScore = file.get_var()
 		
-		print(cSet1, "= cSet1 after loading")
-		print(cSet2, "= cSet2 after loading")
-		print(cSet3, "= cSet3 after loading")
+		# trace prints
+		#print(cSet1, "= cSet1 after loading")
+		#print(cSet2, "= cSet2 after loading")
+		#print(cSet3, "= cSet3 after loading")
 	else:
 		print("file not found")
 		cSet1 = []
@@ -93,3 +88,10 @@ func load_score():
 		difficulty_ = 1.5
 		perfectScore = 0
 		#highscore = 0
+
+func openDataFolder():
+	pass
+	var dataPath = OS.get_data_dir()
+	dataPath += str("/Godot/app_userdata/Schwierig Memorization") # 
+	
+	OS.shell_open(dataPath)

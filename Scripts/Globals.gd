@@ -16,6 +16,8 @@ var setPhy : Array = ["Newton", "Einstein", "Pascal", "Hooke"]
 var setMam : Array = ["Calculus", "Integrals", "Derivative", "Linear differential equation", "Optimisation"]
 var setCS : Array = ["Selection", "Iteration", "String", "Array", " Function", "Recursion"]
 
+var cExternalSet : Array
+
 ### FUNCTIONS ###
 func _ready():
 	pass

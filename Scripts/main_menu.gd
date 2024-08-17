@@ -11,6 +11,8 @@ func _ready():
 	
 	closeCset()
 	$optionSelect/vboxCont/hslid_difficulty.value = Globals.difficulty_
+	
+	$playSelect/vboxCustom/btn_external1/btnPlayExt.disabled = true
 
 
 func _process(delta):
@@ -190,3 +192,35 @@ func _on_hslid_difficulty_drag_ended(value_changed):
 
 
 
+
+
+func _on_btn_external_1_pressed():
+	pass # Replace with function body.
+	$playSelect/vboxCustom/btn_external1/openFile_dlg.show()
+
+func _on_open_file_dlg_file_selected(path):
+	var file = FileAccess.open(path, FileAccess.READ)
+	var content = file.get_as_text(true)
+	
+	# split content
+	content = content.split("\n")
+	
+	Globals.cExternalSet = content # assign global external set to current, split content
+	
+	print(Globals.cExternalSet)
+	
+	## enable the play button
+	$playSelect/vboxCustom/btn_external1/btnPlayExt.disabled = false
+
+
+func _on_btn_play_ext_pressed():
+	pass # Replace with function body.
+	Globals.numWordsToTest = len(Globals.cExternalSet)
+	Globals.currentSet_play = Globals.cExternalSet
+	get_tree().change_scene_to_file("res://Scenes/word_tester.tscn")
+	
+
+
+func _on_btn_github_pressed():
+	pass # Replace with function body.
+	OS.shell_open("https://github.com/aZaamBie/SchwierigMemorization")

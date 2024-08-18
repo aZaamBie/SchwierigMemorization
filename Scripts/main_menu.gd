@@ -166,12 +166,10 @@ func _on_back_c_set_pressed():
 
 
 func _on_save_btn_pressed():
-	pass # Replace with function body.
 	Globals.save_score()
 	OS.alert("Data has been saved successfully (Custom sets and Difficulty level)","ALERT! Successful save.")
 	$sfx_save.play()
 func _on_clear_btn_pressed():
-	pass # Replace with function body.
 	OS.alert("All sets will be cleard and all data in there will be list. ","ALERT! All datat will be cleared")
 	Globals.clearSets()
 
@@ -185,15 +183,11 @@ func _on_play_c_set_pressed():
 
 
 ## OPTIONS
-
 func _on_hslid_difficulty_drag_ended(value_changed):
 	pass # Replace with function body.
 	Globals.difficulty_ = $optionSelect/vboxCont/hslid_difficulty.value
 
-
-
-
-
+## other buttons
 func _on_btn_external_1_pressed():
 	pass # Replace with function body.
 	$playSelect/vboxCustom/btn_external1/openFile_dlg.show()
@@ -204,6 +198,11 @@ func _on_open_file_dlg_file_selected(path):
 	
 	# split content
 	content = content.split("\n")
+	# remove empty spaces
+	for word in content:
+		if word == "":
+			var pos = content.find(word) # find position of empty
+			content.remove_at(pos) # then remove
 	
 	Globals.cExternalSet = content # assign global external set to current, split content
 	
@@ -214,13 +213,12 @@ func _on_open_file_dlg_file_selected(path):
 
 
 func _on_btn_play_ext_pressed():
-	pass # Replace with function body.
 	Globals.numWordsToTest = len(Globals.cExternalSet)
 	Globals.currentSet_play = Globals.cExternalSet
 	get_tree().change_scene_to_file("res://Scenes/word_tester.tscn")
 	
 
-
+# Github button
 func _on_btn_github_pressed():
 	pass # Replace with function body.
 	OS.shell_open("https://github.com/aZaamBie/SchwierigMemorization")

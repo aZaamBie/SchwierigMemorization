@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://22u0rtj4y54j"]
+[gd_scene load_steps=35 format=3 uid="uid://22u0rtj4y54j"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_b6f8g"]
 [ext_resource type="AudioStream" uid="uid://bjqxt4iipx5j" path="res://Assets/audio/interface/confirmation_002.ogg" id="2_3d6tq"]
+[ext_resource type="Texture2D" uid="uid://dejjfv437iwmo" path="res://Assets/UI/icons/fileIco_TextFile_32x32.png" id="2_8tokt"]
 [ext_resource type="Texture2D" uid="uid://dpkqu6lgsjnx7" path="res://Assets/images/fire-emoji-emoji-1590x2048-6otfvrar.png" id="2_lcb0m"]
 [ext_resource type="AudioStream" uid="uid://dw3h1oyj0ah5l" path="res://Assets/audio/interface/select_005.ogg" id="3_ixqpu"]
 
@@ -63,14 +64,55 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkgxb"]
+bg_color = Color(0.137255, 0.192157, 0.160784, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 5
+shadow_offset = Vector2(0, 2.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjlca"]
+bg_color = Color(0.298039, 0.419608, 0.34902, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 5
+shadow_offset = Vector2(0, 2.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6p180"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 5
+shadow_offset = Vector2(0, 2.4)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8bus"]
 bg_color = Color(0.133333, 0.494118, 0.12549, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 2.0
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
 expand_margin_top = 2.0
-expand_margin_right = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+shadow_size = 10
+shadow_offset = Vector2(0, 10)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fymmf"]
 bg_color = Color(0.466667, 0.141176, 0.156863, 1)
@@ -102,33 +144,6 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eacq"]
-bg_color = Color(0.215686, 0.74902, 0.247059, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_size = 2
-shadow_offset = Vector2(5, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03nrn"]
-bg_color = Color(0.262745, 0.909804, 0.301961, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_size = 2
-shadow_offset = Vector2(5, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldlqw"]
-bg_color = Color(0.164706, 0.572549, 0.188235, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_size = 2
-shadow_offset = Vector2(5, 5)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uaty2"]
 bg_color = Color(0.352941, 0.137255, 0.52549, 1)
 
@@ -136,6 +151,33 @@ bg_color = Color(0.352941, 0.137255, 0.52549, 1)
 texture = ExtResource("2_lcb0m")
 expand_margin_top = 5.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fd4ra"]
+bg_color = Color(0.74902, 0, 0.164706, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nglc"]
+bg_color = Color(0.647059, 0, 0.145098, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tmvw0"]
+bg_color = Color(0.427451, 0, 0.0941176, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mi6t"]
 bg_color = Color(0.513726, 0.133333, 0.0941176, 0.729412)
@@ -163,6 +205,33 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 0.258824, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2eacq"]
+bg_color = Color(0.215686, 0.74902, 0.247059, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03nrn"]
+bg_color = Color(0.262745, 0.909804, 0.301961, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldlqw"]
+bg_color = Color(0.164706, 0.572549, 0.188235, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 2
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5rp2"]
 bg_color = Color(0.890196, 0.380392, 0.376471, 1)
@@ -207,7 +276,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.156863, 0.0313726, 0.176471, 1)
+color = Color(0.129412, 0.188235, 0.32549, 1)
 
 [node name="warn" type="Label" parent="."]
 layout_mode = 1
@@ -309,19 +378,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.184314)
 
-[node name="TextEdit" type="TextEdit" parent="playSelect"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -8.0
-offset_right = 4.0
-grow_horizontal = 2
-grow_vertical = 0
-
 [node name="vboxCont" type="VBoxContainer" parent="playSelect"]
 layout_mode = 1
 anchors_preset = -1
@@ -405,12 +461,20 @@ text = "Set 3"
 
 [node name="btn_external1" type="Button" parent="playSelect/vboxCustom"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_hkgxb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bjlca")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6p180")
 text = "OPEN EXTERNAL SET"
 
 [node name="openFile_dlg" type="FileDialog" parent="playSelect/vboxCustom/btn_external1"]
+disable_3d = true
 title = "Open a File"
 initial_position = 2
-size = Vector2i(784, 318)
+size = Vector2i(800, 400)
+theme_override_colors/folder_icon_color = Color(0.458824, 0.52549, 0.8, 1)
+theme_override_colors/file_icon_color = Color(1, 1, 1, 1)
+theme_override_colors/file_disabled_color = Color(0.278431, 0.278431, 0.278431, 1)
+theme_override_icons/file = ExtResource("2_8tokt")
 ok_button_text = "Open"
 file_mode = 0
 access = 2
@@ -423,10 +487,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -23.5
-offset_top = 22.0
-offset_right = 23.5
-offset_bottom = 53.0
+offset_left = -72.5
+offset_top = 26.0
+offset_right = 72.5
+offset_bottom = 57.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_b8bus")
@@ -606,21 +670,6 @@ grow_vertical = 2
 theme_override_constants/separation = 20
 metadata/_edit_use_anchors_ = true
 
-[node name="clearBTN" type="Button" parent="optionSelect/vboxCont"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.341176, 0.207843, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0.262745, 0.262745, 0.262745, 1)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_2eacq")
-theme_override_styles/hover = SubResource("StyleBoxFlat_03nrn")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ldlqw")
-text = "Clear Data (Custom sets)"
-
-[node name="btn_separate_01" type="Button" parent="optionSelect/vboxCont"]
-layout_mode = 2
-disabled = true
-
 [node name="lbl_difficulty" type="Label" parent="optionSelect/vboxCont"]
 layout_mode = 2
 text = "Difficulty:"
@@ -678,6 +727,25 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_lcb0m")
 expand_mode = 1
+
+[node name="btn_separate_01" type="Button" parent="optionSelect/vboxCont"]
+layout_mode = 2
+disabled = true
+
+[node name="btn_separate_03" type="Button" parent="optionSelect/vboxCont"]
+layout_mode = 2
+disabled = true
+
+[node name="clearBTN" type="Button" parent="optionSelect/vboxCont"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0745098, 1, 0.819608, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.792157, 0.65098, 1)
+theme_override_colors/font_hover_color = Color(0.984314, 0.984314, 1, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_fd4ra")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7nglc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tmvw0")
+text = "Clear Data (Custom sets)"
 
 [node name="back" type="Button" parent="optionSelect"]
 layout_mode = 1
@@ -775,9 +843,9 @@ stream = ExtResource("3_ixqpu")
 [connection signal="pressed" from="playSelect/cSet_edit/back_cSet" to="." method="_on_back_c_set_pressed"]
 [connection signal="pressed" from="playSelect/cSet_edit/confirm_cSet" to="." method="_on_confirm_c_set_pressed"]
 [connection signal="pressed" from="playSelect/cSet_edit/play_cSet" to="." method="_on_play_c_set_pressed"]
-[connection signal="pressed" from="optionSelect/vboxCont/clearBTN" to="." method="_on_clear_btn_pressed"]
 [connection signal="drag_ended" from="optionSelect/vboxCont/hslid_difficulty" to="." method="_on_hslid_difficulty_drag_ended"]
 [connection signal="drag_started" from="optionSelect/vboxCont/hslid_difficulty" to="." method="_on_hslid_difficulty_drag_started"]
+[connection signal="pressed" from="optionSelect/vboxCont/clearBTN" to="." method="_on_clear_btn_pressed"]
 [connection signal="pressed" from="optionSelect/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="optionSelect/btn_openDataFolder" to="." method="_on_btn_open_data_folder_pressed"]
 [connection signal="pressed" from="saveBTN" to="." method="_on_save_btn_pressed"]

@@ -13,7 +13,7 @@ extends Control
 
 var timerDur : float = 1.0 # default countdown timer
 
-var originalList
+var originalList = []
 var currentList
 var currentLvl = 1
 var IND_list = 0 # index for the current
@@ -93,9 +93,15 @@ func _input(event):
 		if checkText(txt_,currentList,IND_list):
 			$input/box/existWords/Panel/currentTXT.text += txt_ + "; "
 			displayRes(true)
+			
+			# style rank
+			$Screen/StyleRank.increaseRank()
 		else:
 			pass
 			displayRes(false)
+			
+			# style rank
+			$Screen/StyleRank.decreaseRank()
 		
 		IND_list += 1
 		
@@ -125,6 +131,8 @@ func mainStart():
 	cntCorrect = 0
 	cntIncorrect = 0
 	IND_list = 0
+	
+	$Screen/StyleRank.init_()
 	
 	#buttons
 	$Screen/btn_nxtlvl.disabled = true
